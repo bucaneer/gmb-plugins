@@ -49,7 +49,8 @@ sub precache
 
 sub check_pagemode
 {	for (qx($::Options{OPT.'cmd'} 2>&1))
-	{	if (m/^vmtouch v(\d+)\.(\d+).(\d+)/ && ($1 > 1 || $2 > 0 || $3 >= 1))
+	{	if (m/^vmtouch v(\d+)\.(\d+).(\d+)/ &&
+			($1 > 1 || ($1 == 1 && $2 > 0) || ($1 == 1 && $2 == 0 && $3 >= 1)))
 		{	return 1;
 		}
 	}
