@@ -86,11 +86,13 @@ sub Stop
 }
 
 sub prefbox {
+	my $sg1=Gtk2::SizeGroup->new('horizontal');
+	my $sg2=Gtk2::SizeGroup->new('horizontal');
 	my $vbox=Gtk2::VBox->new;
-	my $cmd = ::NewPrefEntry(OPT.'cmd',_"vmtouch executable:");
-	my $args = ::NewPrefEntry(OPT.'args',_"vmtouch options:");
+	my $cmd = ::NewPrefEntry(OPT.'cmd',_"vmtouch executable:", sizeg1=> $sg1, sizeg2=>$sg2);
+	my $args = ::NewPrefEntry(OPT.'args',_"vmtouch options:", sizeg1=> $sg1, sizeg2=>$sg2);
 	my $vbox_page=Gtk2::VBox->new;
-	my $spin_size = ::NewPrefSpinButton(OPT.'cachesize',1,500, step=>1, page=>5, text=>_"Cache size (MB): ");
+	my $spin_size = ::NewPrefSpinButton(OPT.'cachesize',1,500, step=>1, page=>5, text=>_"Cache size (MB): ", sizeg1=> $sg1);
 	my ($radio_full, $radio_page) = ::NewPrefRadio(OPT.'usepage', 
 		[_"Cache entire file" => 0, _"Cache start of file (recommended)" => 1],
 		cb=>sub{$spin_size->set_sensitive($::Options{OPT.'usepage'})});
